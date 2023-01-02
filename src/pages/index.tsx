@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
 
@@ -83,7 +83,9 @@ const AuthShowcase: React.FC = () => {
             </p>
             <button
                 className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-                onClick={sessionData ? () => signOut() : () => signIn()}
+                onClick={
+                    sessionData ? () => signOut() : () => signIn("mattermost")
+                }
             >
                 {sessionData ? "Sign out" : "Sign in"}
             </button>
