@@ -22,18 +22,17 @@ const mattermostProvider = ({
         type: "oauth",
         version: "2.0",
         token: {
-            // For some reason its necessary to inline these values
             url: `${mmUrl}/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}`,
-        },
-        accessTokenUrl: `${mmUrl}/oauth/access_token`,
-        authorization: {
-            url: `${mmUrl}/oauth/authorize`,
             params: {
-                redirect_uri: callbackUri,
                 client_id,
                 client_secret,
             },
         },
+        accessTokenUrl: `${mmUrl}/oauth/access_token`,
+        authorization: {
+            url: `${mmUrl}/oauth/authorize`,
+        },
+
         userinfo: {
             url: `${mmUrl}/api/v4/users/me`,
             async request({ tokens }) {
@@ -48,6 +47,7 @@ const mattermostProvider = ({
                 return profile;
             },
         },
+
         profile(profile) {
             return {
                 id: profile.id,
@@ -55,6 +55,8 @@ const mattermostProvider = ({
                 email: profile.email,
             };
         },
+        clientId: client_id,
+        clientSecret: client_secret,
     } satisfies OAuthConfig<{
         id: string;
         name: string;
