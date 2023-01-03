@@ -1,4 +1,4 @@
-import { OAuthConfig } from "next-auth/providers";
+import type { OAuthConfig } from "next-auth/providers";
 
 export const mattermostProvider = ({
     mattermostUrl: mmUrl,
