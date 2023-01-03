@@ -23,18 +23,14 @@ const mattermostProvider = ({
         version: "2.0",
         token: {
             url: `${mmUrl}/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}`,
-            params: {
-                client_id,
-                client_secret,
-            },
         },
-        accessTokenUrl: `${mmUrl}/oauth/access_token`,
         authorization: {
             url: `${mmUrl}/oauth/authorize`,
+            params: {
+                callbackUri,
+            },
         },
-
         userinfo: {
-            url: `${mmUrl}/api/v4/users/me`,
             async request({ tokens }) {
                 const profile = await fetch(
                     new URL(`${mmUrl}/api/v4/users/me`),
@@ -47,7 +43,6 @@ const mattermostProvider = ({
                 return profile;
             },
         },
-
         profile(profile) {
             return {
                 id: profile.id,
