@@ -4,12 +4,10 @@ export const mattermostProvider = ({
     mattermostUrl: mmUrl,
     clientId: client_id,
     clientSecret: client_secret,
-    callbackUrl: callbackUri,
 }: {
     mattermostUrl: string;
     clientId: string;
     clientSecret: string;
-    callbackUrl: string;
 }) =>
     ({
         id: "mattermost",
@@ -19,12 +17,7 @@ export const mattermostProvider = ({
         token: {
             url: `${mmUrl}/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}`,
         },
-        authorization: {
-            url: `${mmUrl}/oauth/authorize`,
-            params: {
-                callbackUri,
-            },
-        },
+        authorization: `${mmUrl}/oauth/authorize`,
         userinfo: {
             async request({ tokens }) {
                 const profile = await fetch(
@@ -35,6 +28,7 @@ export const mattermostProvider = ({
                         },
                     }
                 ).then(async (res) => await res.json());
+                console.log(profile);
                 return profile;
             },
         },

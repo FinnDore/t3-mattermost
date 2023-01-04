@@ -22,7 +22,6 @@ export const serverSchema = z.object({
     MM_CLIENT_ID: z.string(),
     MM_CLIENT_SECRET: z.string(),
     MM_URL: z.string().url(),
-    MM_CALLBACK_URI: z.string().url(),
 });
 
 /**

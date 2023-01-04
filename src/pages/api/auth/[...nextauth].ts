@@ -1,7 +1,7 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { mattermostProvider } from "../../../auth/mattermost-provider.js";
+import { mattermostProvider } from "../../../auth/mattermost-provider";
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
 
@@ -22,7 +22,6 @@ export const authOptions: NextAuthOptions = {
             mattermostUrl: env.MM_URL,
             clientId: env.MM_CLIENT_ID,
             clientSecret: env.MM_CLIENT_SECRET,
-            callbackUrl: env.MM_CALLBACK_URI,
         }),
         // ...add more providers here
     ],
