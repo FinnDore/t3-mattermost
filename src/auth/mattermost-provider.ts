@@ -1,21 +1,23 @@
-import type { OAuthConfig } from "next-auth/providers";
+import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 
-export const mattermostProvider = ({
-    mattermostUrl: mmUrl,
-    clientId: client_id,
-    clientSecret: client_secret,
-}: {
-    mattermostUrl: string;
-    clientId: string;
-    clientSecret: string;
-}) =>
-    ({
+export interface MattermostProfile
+    extends Record<string, string | number | boolean> {
+    id: string;
+    username: string;
+    email: string;
+}
+
+export function mattermostProvider<P extends MattermostProfile>(
+    options: OAuthUserConfig<P> & { mattermostUrl: string }
+): OAuthConfig<P> {
+    const mmUrl = options.mattermostUrl;
+
+    return {
         id: "mattermost",
         name: "Mattermost",
         type: "oauth",
-        version: "2.0",
         token: {
-            url: `${mmUrl}/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}`,
+            url: `${mmUrl}/oauth/access_token?client_id=${options.clientId}&client_secret=${options.clientSecret}`,
         },
         authorization: `${mmUrl}/oauth/authorize`,
         userinfo: {
@@ -28,7 +30,6 @@ export const mattermostProvider = ({
                         },
                     }
                 ).then(async (res) => await res.json());
-                console.log(profile);
                 return profile;
             },
         },
@@ -39,11 +40,6 @@ export const mattermostProvider = ({
                 email: profile.email,
             };
         },
-        clientId: client_id,
-        clientSecret: client_secret,
-    } satisfies OAuthConfig<{
-        id: string;
-        name: string;
-        email: string;
-        username: string;
-    }>);
+        options,
+    };
+}
