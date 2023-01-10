@@ -3,10 +3,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 
-import { trpc } from "../utils/trpc";
+import { api } from "../utils/api";
 
 const Home: NextPage = () => {
-    const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+    const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
     return (
         <>
@@ -68,7 +68,7 @@ export default Home;
 const AuthShowcase: React.FC = () => {
     const { data: sessionData } = useSession();
 
-    const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
+    const { data: secretMessage } = api.example.getSecretMessage.useQuery(
         undefined, // no input
         { enabled: sessionData?.user !== undefined }
     );
@@ -84,7 +84,9 @@ const AuthShowcase: React.FC = () => {
             <button
                 className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
                 onClick={
-                    sessionData ? () => signOut() : () => signIn("mattermost")
+                    sessionData
+                        ? () => void signOut()
+                        : () => void signIn("mattermost")
                 }
             >
                 {sessionData ? "Sign out" : "Sign in"}

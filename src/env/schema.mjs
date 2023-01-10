@@ -19,10 +19,25 @@ export const serverSchema = z.object({
         // VERCEL_URL doesn't include `https` so it cant be validated as a URL
         process.env.VERCEL ? z.string() : z.string().url()
     ),
-    MM_CLIENT_ID: z.string(),
-    MM_CLIENT_SECRET: z.string(),
-    MM_URL: z.string().url(),
+    MATTERMOST_CLIENT_ID: z.string(),
+    MATTERMOST_CLIENT_SECRET: z.string(),
+    MATTERMOST_URL: z.string().url(),
 });
+
+/**
+ * You can't destruct `process.env` as a regular object in the Next.js
+ * middleware, so you have to do it manually here.
+ * @type {{ [k in keyof z.infer<typeof serverSchema>]: z.infer<typeof serverSchema>[k] | undefined }}
+ */
+export const serverEnv = {
+    DATABASE_URL: process.env.DATABASE_URL,
+    NODE_ENV: process.env.NODE_ENV,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    MATTERMOST_CLIENT_ID: process.env.MATTERMOST_CLIENT_ID,
+    MATTERMOST_CLIENT_SECRET: process.env.MATTERMOST_CLIENT_SECRET,
+    MATTERMOST_URL: process.env.MATTERMOST_URL,
+};
 
 /**
  * Specify your client-side environment variables schema here.
