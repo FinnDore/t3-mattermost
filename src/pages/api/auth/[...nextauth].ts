@@ -5,6 +5,17 @@ import { MattermostProvider } from "../../../auth/mattermost-provider";
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
+const providers = [];
+if (env.MATTERMOST_CLIENT_ID && env.MATTERMOST_CLIENT_SECRET) {
+    providers.push(
+        MattermostProvider({
+            issuer: env.MATTERMOST_URL,
+            clientId: env.MATTERMOST_CLIENT_ID,
+            clientSecret: env.MATTERMOST_CLIENT_SECRET,
+        })
+    );
+}
+
 export const authOptions: NextAuthOptions = {
     // Include user.id on session
     callbacks: {
@@ -18,11 +29,7 @@ export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
     adapter: PrismaAdapter(prisma),
     providers: [
-        MattermostProvider({
-            issuer: env.MATTERMOST_URL,
-            clientId: env.MATTERMOST_CLIENT_ID,
-            clientSecret: env.MATTERMOST_CLIENT_SECRET,
-        }),
+        ...providers,
         /**
          * ...add more providers here
          *
