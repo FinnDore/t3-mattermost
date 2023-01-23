@@ -22,6 +22,7 @@ export const serverSchema = z.object({
     MATTERMOST_CLIENT_ID: z.string().optional(),
     MATTERMOST_CLIENT_SECRET: z.string().optional(),
     MATTERMOST_URL: z.string().url(),
+    BASE_URL: z.string().url(),
 });
 
 /**
@@ -37,6 +38,7 @@ export const serverEnv = {
     MATTERMOST_CLIENT_ID: process.env.MATTERMOST_CLIENT_ID,
     MATTERMOST_CLIENT_SECRET: process.env.MATTERMOST_CLIENT_SECRET,
     MATTERMOST_URL: process.env.MATTERMOST_URL,
+    BASE_URL: process.env.BASE_URL,
 };
 
 /**

@@ -13,5 +13,11 @@ const config = {
         locales: ["en"],
         defaultLocale: "en",
     },
+    rewrites: async () => [
+        {
+            source: "/static/:path*",
+            destination: "/public/:path*",
+        },
+    ],
 };
 export default config;

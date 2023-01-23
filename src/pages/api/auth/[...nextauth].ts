@@ -14,6 +14,10 @@ if (env.MATTERMOST_CLIENT_ID && env.MATTERMOST_CLIENT_SECRET) {
             clientSecret: env.MATTERMOST_CLIENT_SECRET,
         })
     );
+} else {
+    console.log(
+        "No Mattermost client id supplied or mattermost client secret. Not setting up the Mattermost provider"
+    );
 }
 
 export const authOptions: NextAuthOptions = {
