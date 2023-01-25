@@ -6,7 +6,9 @@
         "dev": "nodemon",
         "build": "next build && tsc --project tsconfig.server.json",
         "postinstall": "prisma generate",
+        "format": "prettier --write . && prisma format",
         "lint": "next lint",
+        "lint:format": "prettier --check . && prisma format && sh .github/check-for-changes.sh 'Unformatted files, please run pnpm format'",
         "start": "cross-env NODE_ENV=production node dist/server.js"
     },
     "dependencies": {
