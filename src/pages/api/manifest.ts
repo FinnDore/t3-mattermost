@@ -12,6 +12,7 @@ const manifest = (
                 root_url: string;
                 use_jwt: boolean;
             };
+            on_install: string;
         }
     >
 ) =>
@@ -21,8 +22,9 @@ const manifest = (
         description:
             "This is a mattermost starter app written using the t3 stack",
         icon: "t3.png",
-        requested_permissions: [Permission.ActAsUser],
+        requested_permissions: [Permission.ActAsUser, Permission.ActAsBot],
         homepage_url: env.BASE_URL,
+        on_install: "/api/mattermost/on-install",
         app_type: "http",
         http: {
             root_url: env.BASE_URL,

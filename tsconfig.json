@@ -17,7 +17,8 @@
         "noUncheckedIndexedAccess": true,
         "baseUrl": ".",
         "paths": {
-            "@mattermost/types/*": ["node_modules/@mattermost/types/lib/*"]
+            "@mattermost/types/*": ["node_modules/@mattermost/types/lib/*"],
+            "@/*": ["src/*"]
         }
     },
 

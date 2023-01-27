@@ -16,6 +16,16 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
+model Config {
+  type ConfigItem @id
+  value String 
+}
+
+enum ConfigItem {
+  MM_TOKEN
+  MM_BOT_ID
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
