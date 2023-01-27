@@ -17,8 +17,8 @@ model Example {
 }
 
 model Config {
-  type ConfigItem @id
-  value String 
+  type  ConfigItem @id
+  value String
 }
 
 enum ConfigItem {
