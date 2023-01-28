@@ -18,6 +18,11 @@ const config = {
             source: "/static/:path*",
             destination: "/public/:path*",
         },
+        {
+            source: "/bindings/:path*",
+            destination: "/api/mattermost/:path*",
+        },
     ],
 };
+
 export default config;
