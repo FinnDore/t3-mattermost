@@ -8,12 +8,19 @@ import { parse } from "url";
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const hostname = new URL(process.env.BASE_URL ?? "").hostname;
+const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
     createServer((req, res) => {
-        const parsedUrl = parse(req.url!, true);
+        if (!req.url) {
+            res.statusCode = 500;
+            res.end();
+            return;
+        }
+
+        const parsedUrl = parse(req.url, true);
         handle(req, res, parsedUrl);
     }).listen(port);
 

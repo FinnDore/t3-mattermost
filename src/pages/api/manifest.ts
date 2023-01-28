@@ -19,8 +19,8 @@ const manifest = (
     res.json({
         app_id: "t3-mattermost",
         display_name: "T3 Mattermost",
-        description:
-            "This is a mattermost starter app written using the t3 stack",
+        version: "0.0.0",
+        description: "Starter app written using the t3 stack",
         icon: "t3.png",
         requested_permissions: [Permission.ActAsUser, Permission.ActAsBot],
         homepage_url: env.BASE_URL,

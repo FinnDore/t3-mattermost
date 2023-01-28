@@ -1,5 +1,5 @@
 import { prisma } from "@/server/db";
-import { AppCallResponse } from "@mattermost/types/lib/apps";
+import type { AppCallResponse } from "@mattermost/types/lib/apps";
 import { ConfigItem } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
